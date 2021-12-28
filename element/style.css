@@ -1,0 +1,30 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0);
+    
+  }
+   
+  
+  
+  
+  .listindex {
+    display: flex;
+    gap: 5vh;
+  }
+  
+  ul
+  {
+    list-style: none;
+  
+  }
+
+
+  body 
+  {
+      padding-bottom: 3%;
+      background: url('https://cpcl.fr/wp-content/uploads/2016/06/livredor_ok-768x449.jpg');
+      background-size: cover;
+      
+        
+  }
