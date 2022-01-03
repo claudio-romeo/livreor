@@ -17,24 +17,20 @@ if(isset($_POST['entrer']))
         $userexist = $requete_connect;
 
         
-        if(isset($tableau['login']))
-        {
-        echo $tableau['login'];
-        
-        }
+       if (count($tableau) > 0 ) //S'il trouve pas de même login, il return false donc mauvais login
+       {
 
-        if(isset($tableau['login']) && $tableau['login']==$login_user)
-        {
-            echo '<br>'.'login ok';         
-            $_pass= $tableau['password'];
+             
+            $_pass= $tableau['password'];  // Récupere le resultat du tableau   /!\ et la colonne password
+            
 
-            if(password_verify($pass_user,$_pass)==TRUE)
+            if(password_verify($pass_user,$_pass)) // Si passwordconnect est hashé et qu'il est pareil que le password sql c'est bon 
             {
             echo 'ok c est le bon pass';
             $_SESSION['id']= $tableau['id'];
             $_SESSION['login']= $tableau['login'];
             $_SESSION['password']= $tableau['password'];
-            header("location: index.php". $_SESSION['id']);
+            header("location: index.php");
 
             }
             else
