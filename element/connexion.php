@@ -1,53 +1,43 @@
 <?php
+
 include("bdd.php");
 
 //si le formulaire est soumis alors
-if(isset($_POST['entrer']))
+if (isset($_POST['entrer'])) 
 {
     //On verifie que tout les champs sont bien remplie
-    if(!empty($_POST['login']) && !empty($_POST['password']))
+    if (!empty($_POST['login']) && !empty($_POST['password'])) 
     {
         $login_user = htmlspecialchars($_POST['login']);
-        $pass_user =($_POST['password']);
+        $pass_user = ($_POST['password']);
         echo $login_user;
 
         // Si tout les champs sont ok alors on fait une requete en BDD pour connecter l'user
-        $requete_connect =mysqli_query($bdd,"SELECT * FROM utilisateurs WHERE login='$login_user' ");
-        $tableau=mysqli_fetch_assoc($requete_connect);
+        $requete_connect = mysqli_query($bdd, "SELECT * FROM utilisateurs WHERE `login`='$login_user' ");
+        $tableau = mysqli_fetch_assoc($requete_connect);
         $userexist = $requete_connect;
 
-        
-       if (count($tableau) > 0 ) //S'il trouve pas de même login, il return false donc mauvais login
-       {
 
-             
-            $_pass= $tableau['password'];  // Récupere le resultat du tableau   /!\ et la colonne password
-            
-
-            if(password_verify($pass_user,$_pass)) // Si passwordconnect est hashé et qu'il est pareil que le password sql c'est bon 
+        if (count($tableau) > 0) { // S'il trouve pas de même login, il return false donc mauvais login
+            $_pass = $tableau['password'];  // Récupere le resultat du tableau   /!\ et la colonne password
+            if (password_verify($pass_user, $_pass)) // Si passwordconnect est hashé et qu'il est pareil que le password sql c'est bon 
             {
-            echo 'ok c est le bon pass';
-            $_SESSION['id']= $tableau['id'];
-            $_SESSION['login']= $tableau['login'];
-            $_SESSION['password']= $tableau['password'];
-            header("location: index.php");
-
+                $_SESSION['id'] = $tableau['id'];
+                $_SESSION['login'] = $tableau['login'];
+                $_SESSION['password'] = $tableau['password'];
+                header("Location: index.php");
+            } else {
+                $erreur = "Mauvais mot de passe !";
             }
-            else
-            $erreur = 'Mauvais mot de pass';
-        }
-       echo 'ok';
-
+        } else
+            $erreur = "Mauvais login !";
+    } else {
+        $erreur = "Tous les champs doivent être remplis !";
     }
-  else 
-    {
-      $erreur = "Les informations ne sont pas corrects !";
-       
-    }    
 }
 
 
-    
+
 
 
 ?>
@@ -63,11 +53,11 @@ if(isset($_POST['entrer']))
     <?php
     // include("link.php")
     ?>
-      <title>Connexion</title>
+    <title>Connexion</title>
 </head>
 
 <?php
-include("header.php"); 
+include("header.php");
 
 ?>
 
@@ -80,23 +70,23 @@ include("header.php");
             <h1>Connexion</h1>
 
             <label><b>Login d'utilisateur</b></label>
-            <input type="text" placeholder="Entrer le Login d'utilisateur" name="login" >
+            <input type="text" placeholder="Entrer le Login d'utilisateur" name="login">
 
             <label><b>Mot de passe</b></label>
-            <input type="password" placeholder="Entrer le mot de passe" name="pass" >
+            <input type="password" placeholder="Entrer le mot de passe" name="password">
 
-            <input type="submit" id='submit' name ="entrer"value='LOGIN'>
+            <input type="submit" id='submit' name="entrer" value='login'>
             <?php
-             if(isset($erreur))
-             {
-                 echo '<font color="red"> '.$erreur.'</font>';
-             }
-        
+            if (isset($erreur)) {
+                echo '<font color="red"> ' . $erreur . '</font>';
+            }
+
             ?>
         </form>
     </div>
     <footer> <?php
-            // include("footer.php"); ?></footer>
+                // include("footer.php"); 
+                ?></footer>
 </body>
 
 </html>

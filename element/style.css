@@ -25,6 +25,7 @@ nav {
       padding-bottom: 3%;
       background: url('https://cpcl.fr/wp-content/uploads/2016/06/livredor_ok-768x449.jpg');
       background-size: cover;
+      background-repeat: no-repeat;
       
         
   }
