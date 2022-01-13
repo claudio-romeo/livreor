@@ -1,4 +1,4 @@
-<nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <ul>
         <li class="tete"><a href="index.php">Accueil</a></li>
     </ul>

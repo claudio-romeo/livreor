@@ -10,7 +10,7 @@ if (isset($_POST['entrer']))
     {
         $login_user = htmlspecialchars($_POST['login']);
         $pass_user = ($_POST['password']);
-        echo $login_user;
+    
 
         // Si tout les champs sont ok alors on fait une requete en BDD pour connecter l'user
         $requete_connect = mysqli_query($bdd, "SELECT * FROM utilisateurs WHERE `login`='$login_user' ");
@@ -18,7 +18,7 @@ if (isset($_POST['entrer']))
         $userexist = $requete_connect;
 
 
-        if (count($tableau) > 0) { // S'il trouve pas de même login, il return false donc mauvais login
+        if(isset($tableau['login']) && $tableau['login']==$login_user) { // S'il trouve pas de même login, il return false donc mauvais login
             $_pass = $tableau['password'];  // Récupere le resultat du tableau   /!\ et la colonne password
             if (password_verify($pass_user, $_pass)) // Si passwordconnect est hashé et qu'il est pareil que le password sql c'est bon 
             {
@@ -27,10 +27,10 @@ if (isset($_POST['entrer']))
                 $_SESSION['password'] = $tableau['password'];
                 header("Location: index.php");
             } else {
-                $erreur = "Mauvais mot de passe !";
+                $erreur = "Mauvais login ou Mot de passe !";
             }
         } else
-            $erreur = "Mauvais login !";
+            $erreur = "Mauvais login ou Mot de passe !";
     } else {
         $erreur = "Tous les champs doivent être remplis !";
     }
@@ -49,9 +49,12 @@ if (isset($_POST['entrer']))
     <meta charset="utf-8">
     <!-- importer le fichier de style -->
     <link rel="stylesheet" href="style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+   
+
 
     <?php
-    // include("link.php")
+    include("link.php")
     ?>
     <title>Connexion</title>
 </head>
@@ -77,15 +80,15 @@ include("header.php");
 
             <input type="submit" id='submit' name="entrer" value='login'>
             <?php
-            if (isset($erreur)) {
-                echo '<font color="red"> ' . $erreur . '</font>';
-            }
+    if (isset($erreur)) {
+      echo '<p style="color:red"> ' . $erreur . '</p>';
+    }
 
-            ?>
+    ?>
         </form>
     </div>
     <footer> <?php
-                // include("footer.php"); 
+                include("footer.php"); 
                 ?></footer>
 </body>
 

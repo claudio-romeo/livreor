@@ -22,8 +22,7 @@ if (isset($_POST['form_inscription']))
                 $erreurs = 'Login non disponible !';
             }
             // Si tout est ok alors on inscrit en base de donné 
-            else 
-            {
+            else {
                 $login = htmlspecialchars($_POST['login']);
                 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
@@ -32,15 +31,12 @@ if (isset($_POST['form_inscription']))
                 // si tout est ok alors on redirige vers la page de connexion 
                 header('location: connexion.php');
             }
-        } 
-            else 
-            {
-                $erreurs = "Vos password ne correspondent pas !";
-            }
-            else 
-            {
-                $erreurs = 'Tous les champs doivent être complété !';
-            }           
+        } else {
+            $erreurs = "Vos password ne correspondent pas !";
+        }
+    else {
+        $erreurs = 'Tous les champs doivent être complété !';
+    }
 }
 
 ?>
@@ -53,9 +49,11 @@ if (isset($_POST['form_inscription']))
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=, initial-scale=1.0">
-    <link rel="stylesheet" href="style2.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
     <?php
-    // include("link.php") ?>
+    include("link.php") ?>
 
     <title>inscription</title>
 </head>
@@ -68,55 +66,62 @@ if (isset($_POST['form_inscription']))
     </header>
 
 
-<body>
-    <div align="center">
-        <h2>Inscription</h2>
-        <br /> <br />
-        <form action="" method="POST">
-            <table>
-                <tr>
-                    <td>
-                        <label for="login">Votre pseudo:</label>
-                    </td>
+    <body>
+        <div align="center">
+            <h2>Inscription</h2>
+            <br /> <br />
+            <form action="" method="POST">
+                <table>
+                    <tr>
+                        <td>
+                            <label for="login">Votre pseudo:</label>
+                        </td>
 
-                    <td>
-                        <input type="text" placeholder="Votre pseudo" name="login" value="<?php if (isset($login)) {
-                                                                                                echo $login;
-                                                                                            } ?>">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="password">Password:</label>
-                    </td>
-                    <td>
-                    <input type="password" placeholder="Mot de pass" id="password" name="password"> <br>
-                    </td>
-                    <td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="password">Confirmer votre password:</label>
-                    </td>
-                    <td>
-                    <input type="password" placeholder="Confirmer votre mot de pass" id="password2" name="password2"> <br></td>
-                    </td> <br>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="submit" value="envoyer" name="form_inscription">
-                    </td>
-                </tr>
-                </tr>
-            </table>
-        </form>
+                        <td>
+                            <input type="text" placeholder="Votre pseudo" name="login" value="<?php if (isset($login)) {
+                                                                                                    echo $login;
+                                                                                                } ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="password">Password:</label>
+                        </td>
+                        <td>
+                            <input type="password" placeholder="Mot de pass" id="password" name="password"> <br>
+                        </td>
+                        <td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="password">Confirmer votre password:</label>
+                        </td>
+                        <td>
+                            <input type="password" placeholder="Confirmer votre mot de pass" id="password2" name="password2"> <br>
+                        </td>
+                        </td> <br>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" value="envoyer" name="form_inscription">
+                        </td>
+                    </tr>
+                    </tr>
+                </table>
+            </form>
 
-        <?php
-        if (isset($erreurs)) {
-            echo '<font color="red">' . $erreurs . "";
-        }
-        ?>
-    </div>
-</body>
+            <?php
+    if (isset($erreur)) {
+      echo '<p style="color:red"> ' . $erreur . '</p>';
+    }
+
+    ?>
+        </div>
+        <footer>
+            <?php
+            include("footer.php")
+            ?>
+        </footer>
+    </body>
 
 </html>
